@@ -398,44 +398,6 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 						}
 
 						$header_newscard_get_featured_post = new WP_Query($header_post_type); ?>
-
-						<section class="featured-stories">
-							<?php newscard_sections_title($newscard_settings['newscard_header_featured_latest_post'], $newscard_settings['newscard_header_featured_posts_title'], $header_newscard_cat); ?>
-							<div class="row gutter-parent-10">
-								<?php while ($header_newscard_get_featured_post->have_posts()) {
-									$header_newscard_get_featured_post->the_post(); ?>
-									<div class="col-sm-6 col-lg-3 post-col">
-										<div class="post-boxed">
-											<?php if ( has_post_thumbnail() ) { ?>
-												<div class="post-img-wrap">
-													<div class="featured-post-img">
-														<a href="<?php the_permalink(); ?>" class="post-img" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(),'large')); ?>');"></a>
-													</div>
-													<div class="entry-meta category-meta">
-														<div class="cat-links"><?php the_category(' '); ?></div>
-													</div><!-- .entry-meta -->
-												</div><!-- .post-img-wrap -->
-											<?php } ?>
-											<div class="post-content">
-												<?php if ( !has_post_thumbnail() ) { ?>
-													<div class="entry-meta category-meta">
-														<div class="cat-links"><?php the_category(' '); ?></div>
-													</div><!-- .entry-meta -->
-												<?php } ?>
-												<?php the_title( '<h3 class="entry-title"><a href="' . esc_url( get_permalink() ) . '">', '</a></h3>' ); ?>
-												<?php if ( 'post' === get_post_type() ) { ?>
-													<div class="entry-meta">
-														<?php newscard_posted_on(); ?>
-													</div>
-												<?php } ?>
-											</div><!-- .post-content -->
-										</div><!-- .post-boxed -->
-									</div><!-- .col-sm-6 .col-lg-3 .post-col-->
-								<?php }
-								// Reset Post Data
-								wp_reset_postdata(); ?>
-							</div><!-- .row -->
-						</section><!-- .featured-stories -->
 					<?php } ?>
 				</div><!-- .container -->
 			</section><!-- .featured-section -->

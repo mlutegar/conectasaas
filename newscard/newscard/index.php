@@ -17,12 +17,6 @@ get_header();
 newscard_layout_primary();
 ?>
 		<main id="main" class="site-main">
-
-            <div class="data-atual">
-                <p>tester</p>
-                <?php echo date_i18n("l, d \d\e F \d\e Y"); ?>
-            </div>
-
 		<?php if ( is_home() && !is_front_page() ) {
 
 			if ( ($newscard_settings['newscard_banner_display'] === 'front-blog' && ($newscard_settings['newscard_banner_slider_posts_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_1_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_2_hide'] === 0)) || $newscard_settings['newscard_header_featured_posts_hide'] === 0 ) { ?>
@@ -42,6 +36,35 @@ newscard_layout_primary();
 
 		if ( have_posts() ) : ?>
 			<div class="row gutter-parent-14 post-wrap">
+
+			<?php
+            // Query para exibir posts da categoria 1
+            $args = array(
+                'category_name' => 'brasil', // Slug da categoria
+                'posts_per_page' => 5, // Número de posts a exibir
+            );
+            $categoria1_query = new WP_Query( $args );
+
+            if ( $categoria1_query->have_posts() ) : ?>
+                <section class="categoria-1-section">
+                    <h2>BRASIL</h2>
+                    <div class="row gutter-parent-14 post-wrap">
+                        <?php while ( $categoria1_query->have_posts() ) :
+                            $categoria1_query->the_post(); ?>
+                            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                                <a href="<?php the_permalink(); ?>">
+                                    <h3><?php the_title(); ?></h3>
+                                </a>
+                                <p><?php the_excerpt(); ?></p>
+                            </article>
+                        <?php endwhile; ?>
+                    </div>
+                </section>
+            <?php
+            wp_reset_postdata();
+            endif;
+            ?>
+
 				<?php /* Start the Loop */
 				 while ( have_posts() ) :
 					the_post();
