@@ -35,36 +35,47 @@ newscard_layout_primary();
 		}
 
 		if ( have_posts() ) : ?>
-			<div class="row gutter-parent-14 post-wrap">
+		<?php
+        // Query para exibir posts da categoria 1
+        $args = array(
+            'category_name' => 'brasil', // Slug da categoria
+            'posts_per_page' => 5, // Número de posts a exibir
+        );
+        $categoria1_query = new WP_Query($args);
 
-			<?php
-            // Query para exibir posts da categoria 1
-            $args = array(
-                'category_name' => 'brasil', // Slug da categoria
-                'posts_per_page' => 5, // Número de posts a exibir
-            );
-            $categoria1_query = new WP_Query( $args );
-
-            if ( $categoria1_query->have_posts() ) : ?>
-                <section class="categoria-1-section">
-                    <h2>BRASIL</h2>
+        if ($categoria1_query->have_posts()) : ?>
+            <section class="categoria-1-section">
+                <div class="row">
+                    <div class="titulo">BRASIL</div>
                     <div class="row gutter-parent-14 post-wrap">
-                        <?php while ( $categoria1_query->have_posts() ) :
+                        <?php while ($categoria1_query->have_posts()) :
                             $categoria1_query->the_post(); ?>
                             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                                 <a href="<?php the_permalink(); ?>">
-                                    <h3><?php the_title(); ?></h3>
+                                <div class="imagem-noticia">
+                                    <?php
+                                    // Exibe a imagem destacada (thumbnail) com tamanho médio
+                                    if (has_post_thumbnail()) {
+                                        the_post_thumbnail('medium', array('class' => 'post-thumbnail'));
+                                    }
+                                    ?>
+                                    </div>
+                                <div class="titulo-noticia"><?php the_title(); ?></div>
                                 </a>
                                 <p><?php the_excerpt(); ?></p>
                             </article>
                         <?php endwhile; ?>
                     </div>
-                </section>
-            <?php
-            wp_reset_postdata();
-            endif;
-            ?>
+                </div>
+            </section>
+        <?php
+        wp_reset_postdata();
+        endif;
+        ?>
 
+
+
+			<div class="row gutter-parent-14 post-wrap">
 				<?php /* Start the Loop */
 				 while ( have_posts() ) :
 					the_post();
