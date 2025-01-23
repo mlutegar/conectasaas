@@ -90,12 +90,20 @@ $newscard_settings = newscard_get_option_defaults(); ?>
                     <div class="parte-direita-header">
 
                     															<div class="nav-search">
+                    															<div class="search-bar">
+                                                                                						<div class="container">
+                                                                                							<div class="search-block off">
+                                                                                								<?php get_search_form(); ?>
+                                                                                							</div><!-- .search-box -->
+                                                                                						</div><!-- .container -->
+                                                                                					</div><!-- .search-bar -->
+
                                                         							<span class="search-toggle">
                                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="38" viewBox="0 0 40 38" fill="none">
                                                                                           <path d="M26.3258 25.0342L35 33.25M30 16.625C30 23.1833 24.4035 28.5 17.5 28.5C10.5964 28.5 5 23.1833 5 16.625C5 10.0666 10.5964 4.75 17.5 4.75C24.4035 4.75 30 10.0666 30 16.625Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                                                         </svg></span>
                                                         						</div>
-                                                                            <div>
+                                                                            <div class="menu-hamburgue">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="34" viewBox="0 0 40 34" fill="none">
                                                                                   <line y1="1" x2="40" y2="1" stroke="white" stroke-width="2"/>
                                                                                   <line y1="33" x2="40" y2="33" stroke="white" stroke-width="2"/>
@@ -123,13 +131,6 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 						<button class="navbar-toggler menu-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'newscard'); ?>"></button>
 						<span class="search-toggle"></span>
 					</div><!-- .container -->
-					<div class="search-bar">
-						<div class="container">
-							<div class="search-block off">
-								<?php get_search_form(); ?>
-							</div><!-- .search-box -->
-						</div><!-- .container -->
-					</div><!-- .search-bar -->
 				</div><!-- .navigation-bar-top -->
 				<div class="navbar-main">
 					<div class="container">
@@ -418,3 +419,54 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 			<?php } else { ?>
 				<div class="row justify-content-center site-content-row">
 			<?php } ?>
+
+			<div class="menu-hamburguer-lateral">
+                <button class="close-menu">&times;</button>
+                <nav class="menu-lateral">
+                    <ul>
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Empresas e Startups</a></li>
+                        <li><a href="#">Marketing/Vendas</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Lançamentos</a></li>
+                        <li><a href="#">Tendências</a></li>
+                        <li><a href="#">Estudos de Caso e Sucesso</a></li>
+                        <li><a href="#">Finanças</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </nav>
+            </div>
+
+
+			<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuHamburguer = document.querySelector('.menu-hamburgue');
+    const menuLateral = document.querySelector('.menu-hamburguer-lateral');
+    const closeMenu = document.querySelector('.close-menu');
+
+    // Abrir o menu
+    menuHamburguer.addEventListener('click', () => {
+        menuLateral.classList.add('active');
+        menuHamburguer.classList.add('open'); // Adiciona uma classe para animação
+    });
+
+
+    // Fechar o menu
+    closeMenu.addEventListener('click', () => {
+        menuLateral.classList.remove('active');
+        menuHamburguer.classList.remove('open'); // Remove a classe
+    });
+
+    // Fechar o menu ao clicar fora (opcional)
+    document.addEventListener('click', (event) => {
+        if (!menuLateral.contains(event.target) && !menuHamburguer.contains(event.target)) {
+            menuLateral.classList.remove('active');
+        }
+    });
+});
+
+			</script>

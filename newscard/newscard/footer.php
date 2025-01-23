@@ -113,27 +113,61 @@
 				</div><!-- .container -->
 			</div><!-- .widget-area -->
 		<?php } ?>
-		<div class="site-info">
-			<div class="container">
-				<div class="row">
-					<?php
-					if ( $newscard_settings['newscard_social_profiles'] != '' ) { ?>
-						<div class="col-lg-auto order-lg-2 ml-auto">
-							<div class="social-profiles">
-								<?php echo esc_html( newscard_social_profiles() ); ?>
-							</div>
-						</div>
-					<?php } ?>
-					<div class="copyright col-lg order-lg-1 text-lg-left">
-						<div class="theme-link">
-							<?php echo esc_html__('Copyright &copy; ','newscard') . newscard_the_year() . newscard_site_link(); ?></div><?php if ( function_exists('the_privacy_policy_link') ) {
-							the_privacy_policy_link('<div class="privacy-link">', '</div>');
-						}
-						echo newscard_author_link() . newscard_wp_link(); ?>
-					</div><!-- .copyright -->
-				</div><!-- .row -->
-			</div><!-- .container -->
-		</div><!-- .site-info -->
+		<div class="site-footer-container">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <!-- Logo -->
+                        <div class="col-lg-3 footer-logo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Conecta SaaS">
+                        </div>
+
+                        <!-- Categorias -->
+                        <div class="col-lg-6 footer-categories">
+                            <h3>CATEGORIAS</h3>
+                            <ul class="categories-list">
+                                <li><a href="#">Lançamentos e Atualizações</a></li>
+                                <li><a href="#">Tendências do Setor</a></li>
+                                <li><a href="#">Estudos de Caso e Sucesso</a></li>
+                                <li><a href="#">Comparativos e Reviews</a></li>
+                                <li><a href="#">Segurança e Privacidade</a></li>
+                                <li><a href="#">Empresas e Startups</a></li>
+                                <li><a href="#">Integrações e APIs</a></li>
+                                <li><a href="#">Marketing e Vendas</a></li>
+                                <li><a href="#">Eventos e Conferências</a></li>
+                                <li><a href="#">Melhores Práticas e Dicas</a></li>
+                                <li><a href="#">Finanças e Investimentos</a></li>
+                                <li><a href="#">Recursos Humanos e Produtividade</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Institucional -->
+                        <div class="col-lg-3 footer-institutional">
+                            <h3>INSTITUCIONAL</h3>
+                            <ul>
+                                <li><a href="#">Fale conosco</a></li>
+                                <li><a href="#">Sobre nós</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 copyright">
+                            <p>ConectaSaaS © <?php echo date('Y'); ?> Todos os direitos reservados.</p>
+                        </div>
+                        <div class="col-lg-6 footer-links text-right">
+                            <a href="#">Termos de uso</a>
+                            <a href="#">Política de privacidade</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</footer><!-- #colophon -->
 	<div class="back-to-top"><a title="<?php esc_attr_e('Go to Top','newscard');?>" href="#masthead"></a></div>
 </div><!-- #page -->

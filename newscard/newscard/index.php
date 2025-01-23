@@ -45,7 +45,7 @@ newscard_layout_primary();
 
         if ($categoria1_query->have_posts()) : ?>
             <section class="categoria-1-section">
-                <div class="row">
+                <div class="row flex-column">
                     <div class="titulo">BRASIL</div>
                     <div class="row gutter-parent-14 post-wrap">
                         <?php while ($categoria1_query->have_posts()) :
@@ -60,9 +60,17 @@ newscard_layout_primary();
                                     }
                                     ?>
                                     </div>
+                                                            <div class="categoria-noticia">
+                                                                <?php
+                                                                // Exibe a categoria do post
+                                                                $categories = get_the_category();
+                                                                if (!empty($categories)) {
+                                                                    echo '<span class="categoria">' . esc_html($categories[0]->name) . '</span>';
+                                                                }
+                                                                ?>
+                                                            </div>
                                 <div class="titulo-noticia"><?php the_title(); ?></div>
                                 </a>
-                                <p><?php the_excerpt(); ?></p>
                             </article>
                         <?php endwhile; ?>
                     </div>
@@ -73,21 +81,73 @@ newscard_layout_primary();
         endif;
         ?>
 
+        <?php
+        $args_categoria2 = array(
+            'category_name' => 'mundo', // Substitua pelo slug da sua segunda categoria
+            'posts_per_page' => 5, // Número de posts a exibir
+        );
+        $categoria2_query = new WP_Query($args_categoria2);
+
+if ($categoria2_query->have_posts()) : ?>
+    <section class="categoria-black">
+        <div class="row flex-column">
+            <div class="titulo black">MUNDO</div> <!-- Nome da categoria -->
+            <div class="row gutter-parent-14 post-wrap">
+                <?php while ($categoria2_query->have_posts()) :
+                    $categoria2_query->the_post(); ?>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                        <a href="<?php the_permalink(); ?>">
+                            <div class="imagem-noticia">
+                                <?php
+                                if (has_post_thumbnail()) {
+                                    the_post_thumbnail('medium', array('class' => 'post-thumbnail'));
+                                }
+                                ?>
+                            </div>
+                            <div class="categoria-noticia black">
+                                <?php
+                                $categories = get_the_category();
+                                if (!empty($categories)) {
+                                    echo '<span class="categoria">' . esc_html($categories[0]->name) . '</span>';
+                                }
+                                ?>
+                            </div>
+                            <div class="titulo-noticia black"><?php the_title(); ?></div>
+                        </a>
+                    </article>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </section>
+<?php
+wp_reset_postdata();
+endif;
+?>
+
+<section class="newsletter-section">
+    <div class="container newsletter-container">
+        <div class="newsletter-content">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.png" alt="Conecta SaaS" class="newsletter-logo">
+            <h2>Fique atualizado com as principais novidades do mundo SaaS! Não perca nada!</h2>
+            <form action="#" method="POST" class="newsletter-form">
+                <div class="newsletter-fields">
+                    <input type="text" name="nome" placeholder="Nome completo" class="input-field">
+                    <input type="email" name="email" placeholder="Email" class="input-field">
+                </div>
+                <div class="newsletter-terms">
+                    <label>
+                        <input type="checkbox" name="termos">
+                        Li e concordo com os termos de uso e os termos de privacidade
+                    </label>
+                </div>
+                <button type="submit" class="newsletter-button">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</section>
 
 
 			<div class="row gutter-parent-14 post-wrap">
-				<?php /* Start the Loop */
-				 while ( have_posts() ) :
-					the_post();
-
-					/*
-					 * Include the Post-Type-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-					 */
-					get_template_part( 'template-parts/content', get_post_format() );
-
-				endwhile; ?>
 			</div><!-- .row .gutter-parent-14 .post-wrap -->
 
 			<?php the_posts_pagination( array(
