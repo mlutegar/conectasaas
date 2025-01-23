@@ -87,6 +87,22 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 								<?php endif; ?>
 							</div><!-- .site-branding .navbar-brand -->
 						</div>
+                    <div class="parte-direita-header">
+
+                    															<div class="nav-search">
+                                                        							<span class="search-toggle">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="38" viewBox="0 0 40 38" fill="none">
+                                                                                          <path d="M26.3258 25.0342L35 33.25M30 16.625C30 23.1833 24.4035 28.5 17.5 28.5C10.5964 28.5 5 23.1833 5 16.625C5 10.0666 10.5964 4.75 17.5 4.75C24.4035 4.75 30 10.0666 30 16.625Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        </svg></span>
+                                                        						</div>
+                                                                            <div>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="34" viewBox="0 0 40 34" fill="none">
+                                                                                  <line y1="1" x2="40" y2="1" stroke="white" stroke-width="2"/>
+                                                                                  <line y1="33" x2="40" y2="33" stroke="white" stroke-width="2"/>
+                                                                                  <line y1="17" x2="40" y2="17" stroke="white" stroke-width="2"/>
+                                                                                </svg>
+                                                                            </div>
+                                                                        </div>
 						<?php if ( $newscard_settings['newscard_header_add_image'] !== '' ) { ?>
 							<div class="col-lg-8 navbar-ad-section">
 								<?php if ( $newscard_settings['newscard_header_add_link'] !== '' ) { ?>
@@ -135,9 +151,6 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 								?>
 							</div><!-- #site-navigation .main-navigation -->
 						</div><!-- .navbar-collapse -->
-						<div class="nav-search">
-							<span class="search-toggle"></span>
-						</div><!-- .nav-search -->
 					</div><!-- .container -->
 				</div><!-- .navbar-main -->
 			</div><!-- .navigation-bar -->
@@ -193,8 +206,12 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 		<?php } ?>
 
 		<?php if ( ( ( is_front_page() || ( is_home() && $newscard_settings['newscard_banner_display'] === 'front-blog' ) ) && ( $newscard_settings['newscard_banner_slider_posts_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_1_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_2_hide'] === 0 ) ) || ( ( is_front_page() || ( is_home() && $newscard_settings['newscard_header_featured_posts_banner_display'] === 'front-blog' ) ) && $newscard_settings['newscard_header_featured_posts_hide'] === 0 ) ) { ?>
-			<section class="featured-section">
+            <section class="featured-section">
 				<div class="container">
+                    <div class="data-atual">
+                        <?php echo date_i18n("j \\d\\e F \\d\\e Y"); ?>
+                    </div>
+
 					<?php if ( ( is_front_page() || ( is_home() && $newscard_settings['newscard_banner_display'] === 'front-blog' ) ) && ( $newscard_settings['newscard_banner_slider_posts_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_1_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_2_hide'] === 0 ) ) {
 
 						$col_wrap_class = '';
@@ -237,9 +254,7 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 
 								<div class="<?php echo $col_slider_class ?>">
 									<div class="featured-slider post-slider<?php echo ( $newscard_settings['newscard_banner_slider_posts_title'] === '' ) ? " slider-no-title" : ""; ?>">
-										<div class="post-slider-header title-wrap">
-											<?php newscard_sections_title($newscard_settings['newscard_banner_slider_latest_post'], $newscard_settings['newscard_banner_slider_posts_title'], $newscard_bs_cat); ?>
-										</div>
+
 										<div class="owl-carousel">
 											<?php while ($newscard_get_banner_slider->have_posts()) {
 												$newscard_get_banner_slider->the_post(); ?>
@@ -288,9 +303,6 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 
 								<div class="<?php echo $col_mid_class ?>">
 									<div class="featured-post">
-										<div class="title-wrap">
-											<?php newscard_sections_title($newscard_settings['newscard_banner_featured_posts_1_latest_post'], $newscard_settings['newscard_banner_featured_posts_1_title'], $newscard_fp_1_cat); ?>
-										</div>
 										<div class="row">
 											<?php while ($newscard_get_featured_post_1->have_posts()) {
 												$newscard_get_featured_post_1->the_post(); ?>
@@ -339,9 +351,6 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 
 								<div class="<?php echo $col_mid_class ?>">
 									<div class="featured-post">
-										<div class="title-wrap">
-											<?php newscard_sections_title($newscard_settings['newscard_banner_featured_posts_2_latest_post'], $newscard_settings['newscard_banner_featured_posts_2_title'], $newscard_fp_2_cat); ?>
-										</div>
 										<div class="row">
 											<?php while ($newscard_get_featured_post_2->have_posts()) {
 												$newscard_get_featured_post_2->the_post(); ?>

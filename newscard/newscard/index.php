@@ -18,11 +18,17 @@ newscard_layout_primary();
 ?>
 		<main id="main" class="site-main">
 
+            <div class="data-atual">
+                <p>tester</p>
+                <?php echo date_i18n("l, d \d\e F \d\e Y"); ?>
+            </div>
+
 		<?php if ( is_home() && !is_front_page() ) {
 
 			if ( ($newscard_settings['newscard_banner_display'] === 'front-blog' && ($newscard_settings['newscard_banner_slider_posts_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_1_hide'] === 0 || $newscard_settings['newscard_banner_featured_posts_2_hide'] === 0)) || $newscard_settings['newscard_header_featured_posts_hide'] === 0 ) { ?>
 
 				<h2 class="stories-title"><?php echo get_the_title(get_option('page_for_posts')); ?> </h2>
+
 
 			<?php } else { ?>
 

@@ -17,6 +17,11 @@ get_header();
 	newscard_layout_primary(); ?>
 		<main id="main" class="site-main">
 
+        <div class="data-atual">
+            <p>tester</p>
+            <?php echo date_i18n("l, d \d\e F \d\e Y"); ?>
+        </div>
+
 			<?php
 			while ( have_posts() ) :
 				the_post();
