@@ -29,14 +29,85 @@ newscard_layout_primary();
 				<header class="page-header">
 					<h2 class="page-title"><?php echo get_the_title(get_option('page_for_posts')); ?> </h2>
 				</header><!-- .page-header -->
-
 			<?php }
+			} ?>
 
-		}
+<section class="ultimas-noticias-topo">
+        <div class="noticia-destaque">
+            <?php
+            // Query para pegar a notícia mais recente
+            $args_destaque = array(
+                'post_type' => 'post',
+                'posts_per_page' => 1,
+                'orderby' => 'date',
+                'order' => 'DESC',
+            );
+            $query_destaque = new WP_Query($args_destaque);
 
-		if ( have_posts() ) : ?>
+            if ($query_destaque->have_posts()) :
+                while ($query_destaque->have_posts()) : $query_destaque->the_post(); ?>
+                    <div class="destaque-imagem">
+                        <?php the_post_thumbnail('large'); ?>
+                    </div>
+                    <div class="destaque-conteudo">
+                        <span class="categoria"><?php the_category(', '); ?></span>
+                        <h2 class="titulo-noticia-destacada"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                        <span class="data-publicacao"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></span>
+                    </div>
+                <?php endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </div>
+
+        <div class="outras-noticias">
+            <?php
+            // Query para pegar as próximas 4 notícias
+            $args_outras = array(
+                'post_type' => 'post',
+                'posts_per_page' => 4,
+                'offset' => 1, // Pula a notícia em destaque
+                'orderby' => 'date',
+                'order' => 'DESC',
+            );
+            $query_outras = new WP_Query($args_outras);
+
+            if ($query_outras->have_posts()) :
+                while ($query_outras->have_posts()) : $query_outras->the_post(); ?>
+                    <div class="banner-outras-noticia-item">
+                        <div class="noticia-thumb">
+                            <a href="<?php the_permalink(); ?>" class="imagem-banner-outras-noticias">
+                                <?php the_post_thumbnail('medium'); ?>
+                            </a>
+                        </div>
+                        <div class="noticia-info">
+                            <span class="categoria"><?php the_category(', '); ?></span>
+                            <div class="titulo-outras-noticia">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+                            <div class="data-publicacao">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <g clip-path="url(#clip0_325_681)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM7 3V8.41421L10.2929 11.7071L11.7071 10.2929L9 7.58579V3H7Z" fill="black"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_325_681">
+                                  <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></div>
+                        </div>
+                    </div>
+                <?php endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </div>
+</section>
+
+
 		<?php
-        // Query para exibir posts da categoria 1
+        if ( have_posts() ) :
         $args = array(
             'category_name' => 'brasil', // Slug da categoria
             'posts_per_page' => 5, // Número de posts a exibir
