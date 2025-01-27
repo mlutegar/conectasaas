@@ -19,6 +19,7 @@ get_header();
 				get_template_part( 'template-parts/content', get_post_type() );
 				?>
 <section class="mais-noticias">
+                        <div class="mais-noticias-container">
     <h2>Mais Notícias</h2>
     <div class="noticias-lista">
         <?php
@@ -53,6 +54,7 @@ get_header();
         else : ?>
             <p>Nenhuma notícia encontrada.</p>
         <?php endif; ?>
+    </div>
     </div>
 </section>
 
