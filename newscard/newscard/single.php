@@ -12,6 +12,10 @@ get_header();
 	newscard_layout_primary(); ?>
 		<main id="main" class="site-main">
 
+                                <div class="data-atual">
+                                    <?php echo date_i18n("j \\d\\e F \\d\\e Y"); ?>
+                                </div>
+
 			<?php
 			while ( have_posts() ) :
 				the_post();
@@ -45,7 +49,16 @@ get_header();
                         <div class="noticia-conteudo">
                             <h3><?php the_title(); ?></h3>
                             <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                            <span class="noticia-data"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></span>
+                            <span class="noticia-data"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                         <g clip-path="url(#clip0_201_3077)">
+                                                           <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM7 3V8.41421L10.2929 11.7071L11.7071 10.2929L9 7.58579V3H7Z" fill="#990A04"/>
+                                                         </g>
+                                                         <defs>
+                                                           <clipPath id="clip0_201_3077">
+                                                             <rect width="16" height="16" fill="white"/>
+                                                           </clipPath>
+                                                         </defs>
+                                                       </svg><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></span>
                         </div>
                     </a>
                 </div>

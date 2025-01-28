@@ -52,7 +52,18 @@ newscard_layout_primary();
                     <div class="destaque-conteudo">
                         <span class="categoria"><?php the_category(', '); ?></span>
                         <h2 class="titulo-noticia-destacada"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                        <span class="data-publicacao"><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></span>
+                        <span class="data-publicacao">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                          <g clip-path="url(#clip0_325_681)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM7 3V8.41421L10.2929 11.7071L11.7071 10.2929L9 7.58579V3H7Z" fill="black"/>
+                                                          </g>
+                                                          <defs>
+                                                            <clipPath id="clip0_325_681">
+                                                              <rect width="16" height="16" fill="white"/>
+                                                            </clipPath>
+                                                          </defs>
+                                                        </svg>
+                            <?php echo human_time_diff(get_the_time('U'), current_time('timestamp')) . ' atrás'; ?></span>
                     </div>
                 <?php endwhile;
                 wp_reset_postdata();

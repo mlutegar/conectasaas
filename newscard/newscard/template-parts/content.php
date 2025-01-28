@@ -12,7 +12,7 @@
 <?php if ( !is_singular() ) { ?>
 	<div class="col-sm-6<?php echo ( 'fullwidth' == $newscard_settings['newscard_content_layout'] ) ? ' col-lg-4': ''; ?> col-xxl-4 post-col">
 <?php } ?>
-	<div <?php post_class(); ?>>
+	<div  id="divconteudo"  <?php post_class(); ?>>
 
 		<?php if ( has_post_thumbnail() ) {
 
