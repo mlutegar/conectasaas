@@ -29,6 +29,10 @@
 
 				if ( $newscard_settings['newscard_featured_image_single'] === 1 ) { ?>
 
+    <figure class="post-featured-image-single">
+        <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>" />
+    </figure>
+
 					<figure class="post-featured-image page-single-img-wrap">
 						<div class="post-img" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(),'full')); ?>');"></div>
 						<?php if ( get_the_post_thumbnail_caption( get_the_ID() ) ) { ?>
@@ -75,16 +79,76 @@
 			</header>
 		<?php } ?>
 		<div class="entry-content">
-			<?php if ( is_single() ) {
-				the_content();
-			} else {
-				if ( !(has_post_format('link') || has_post_format('quote')) ) { ?>
-					<p><?php echo wp_trim_words( get_the_excerpt(), 16 ); ?></p>
-				<?php } else {
-					the_content();
-				}
-			} ?>
-		</div><!-- entry-content -->
+            <?php if ( is_single() ) : ?>
+                <figure class="post-featured-image-single">
+                    <img class="imagem-noticia-leitura" src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>" />
+                </figure>
+
+                <?php
+                // Captura o conteúdo
+                $content = apply_filters('the_content', get_the_content());
+                $paragrafos = explode('</p>', $content); // Divide o conteúdo por parágrafos
+                $metade = ceil(count($paragrafos) / 2); // Define o ponto de inserção no meio
+
+                // Exibe a primeira metade do conteúdo
+                for ($i = 0; $i < $metade; $i++) {
+                    echo $paragrafos[$i] . '</p>';
+                }
+                ?>
+
+                <!-- Seção de Notícias Relacionadas -->
+                <section class="noticias-relacionadas">
+                    <h2 class="noticias-relacionadas-titulo"
+                    >
+                        Notícias Relacionadas</h2>
+                    <div class="relacionadas-lista">
+                        <?php
+                        // Query para buscar notícias relacionadas com base nas categorias
+                        $args = array(
+                            'post_type' => 'post',
+                            'posts_per_page' => 3, // Número de notícias relacionadas
+                            'post__not_in' => array(get_the_ID()), // Exclui o post atual
+                            'category__in' => wp_get_post_categories(get_the_ID()), // Mesmas categorias do post atual
+                            'orderby' => 'rand' // Ordena aleatoriamente
+                        );
+                        $relacionadas = new WP_Query($args);
+
+                        if ($relacionadas->have_posts()) :
+                            while ($relacionadas->have_posts()) : $relacionadas->the_post(); ?>
+                                <div class="relacionada-item">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <div class="relacionada-thumb">
+                                                <?php the_post_thumbnail('thumbnail'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <h3><?php the_title(); ?></h3>
+                                    </a>
+                                </div>
+                            <?php endwhile;
+                            wp_reset_postdata();
+                        else : ?>
+                            <p>Nenhuma notícia relacionada encontrada.</p>
+                        <?php endif; ?>
+                    </div>
+                </section>
+                <!-- Fim da Seção de Notícias Relacionadas -->
+
+                <?php
+                // Exibe a segunda metade do conteúdo
+                for ($i = $metade; $i < count($paragrafos); $i++) {
+                    echo $paragrafos[$i] . '</p>';
+                }
+                ?>
+            <?php else : ?>
+                <?php if ( !(has_post_format('link') || has_post_format('quote')) ) : ?>
+                    <p><?php echo wp_trim_words( get_the_excerpt(), 16 ); ?></p>
+                <?php else :
+                    the_content();
+                endif; ?>
+            <?php endif; ?>
+        </div><!-- entry-content -->
+
 
 		<?php if ( is_single() ) {
 			echo get_the_tag_list( sprintf('<footer class="entry-meta"><span class="tag-links"><span class="label">%s:</span> ', esc_html__('Tags', 'newscard') ), ', ', '</span><!-- .tag-links --></footer><!-- .entry-meta -->' );
