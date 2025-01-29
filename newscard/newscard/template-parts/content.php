@@ -101,7 +101,7 @@
                     <h2 class="noticias-relacionadas-titulo"
                     >
                         Notícias Relacionadas</h2>
-                    <div class="relacionadas-lista">
+                    <div class="relacionadaa-lista">
                         <?php
                         // Query para buscar notícias relacionadas com base nas categorias
                         $args = array(

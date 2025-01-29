@@ -138,22 +138,27 @@ $newscard_settings = newscard_get_option_defaults(); ?>
 				<div class="navbar-main">
 					<div class="container">
 						<div class="collapse navbar-collapse" id="navbarCollapse">
-							<div id="site-navigation" class="main-navigation<?php echo ($newscard_settings['newscard_nav_uppercase'] == 1) ? " nav-uppercase" : "";?>" role="navigation">
-								<?php
-								if ( has_nav_menu('primary') ) {
-									wp_nav_menu( array(
-										'theme_location'	=> 'primary',
-										'container'			=> '',
-										'items_wrap'		=> '<ul class="nav-menu navbar-nav d-lg-block">%3$s</ul>',
-									) );
-								} else {
-									wp_page_menu( array(
-										'before' 			=> '<ul class="nav-menu navbar-nav d-lg-block">',
-										'after'				=> '</ul>',
-									) );
-								}
-								?>
-							</div><!-- #site-navigation .main-navigation -->
+<div id="site-navigation" class="main-navigation<?php echo ($newscard_settings['newscard_nav_uppercase'] == 1) ? " nav-uppercase" : "";?>" role="navigation">
+        <ul class="nav-menu navbar-nav d-lg-block">
+            <!-- Link para a Página Inicial -->
+            <li class="menu-item">
+                <a href="<?php echo home_url(); ?>">Início</a>
+            </li>
+            <!-- Listando Categorias -->
+            <?php
+            $categorias = get_categories(array(
+                'orderby' => 'name',
+                'order'   => 'ASC',
+            ));
+
+            foreach ($categorias as $categoria) {
+                echo '<li class="menu-item">';
+                echo '<a href="' . get_category_link($categoria->term_id) . '">' . $categoria->name . '</a>';
+                echo '</li>';
+            }
+            ?>
+        </ul>
+    </div><!-- #site-navigation .main-navigation -->
 						</div><!-- .navbar-collapse -->
 					</div><!-- .container -->
 				</div><!-- .navbar-main -->
